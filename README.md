@@ -12,5 +12,5 @@ Thus far it is a fully functioning password generator that can be used so long a
 2. Add a dictionary functionality to allow users to generate passwords that can also pull words from a dictionary list (potentially stored as a JSON file).
 3. Allow users to specify words or character lists they would like to use in generating their passwords.
 
-## COMPLETED:
+## COMPLETED TO DOS:
 1. Add the capability to write passwords to a .txt file. >>> Now writes to JSON.
