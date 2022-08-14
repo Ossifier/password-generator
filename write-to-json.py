@@ -6,46 +6,51 @@ folder_path = 'p_fldr_x/'
 folder_exists = os.path.exists(folder_path)
 file_path = 'p_fldr_x/pswds.json'
 file_exists = os.path.exists(file_path)
-new_entry = {}
 
-def file_check():
-    
-    # Checks to see if folders/files exist. If they do not, then it generates them for you.
-    # Consider using variables for filename directories in the future.
 
-    if os.path.exists('p_fldr_x/') is True:
+def create_file(file):
+    with open(file, 'x') as n_file:
+        json.dump({}, n_file)
+
+
+def create_folder(folder):
+    os.makedirs(folder)
+
+
+def load_file(file):
+    with open(file, 'r') as l_file:
+        loaded_file = json.load(l_file)
+        return loaded_file
+
+
+def file_check(password_folder=folder_path, password_file=file_path):
+
+    if os.path.exists(password_folder) is True:
         print('Folder exists.')
-        
-        if os.path.exists('p_fldr_x/pswds.json') is True:
+
+        if os.path.exists(password_file) is True:
             print('File exists.')
-            with open('p_fldr_x/pswds.json', 'r') as r_file:
-                loaded_file = json.load(r_file)
-                return loaded_file
+            load_file(password_file)
 
         else:
             print('File does not exist...')
-            with open('p_fldr_x/pswds.json', 'x') as new_json:
-                json.dump({}, new_json)
-                print('New file created.')
-            with open('p_fldr_x/pswds.json', 'r') as r_file:
-                loaded_file = json.load(r_file)
-                return loaded_file
+            create_file(password_file)
+            print('New file created.')
+            load_file(password_file)
 
     else:
         print('Folder does not exist...')
-        os.makedirs('p_fldr_x')
-        print('Folder created.')
-        with open('p_fldr_x/pswds.json', 'x') as new_json:
-            json.dump({}, new_json)
-            print('New file created.')
-        with open('p_fldr_x/pswds.json', 'r') as r_file:
-            loaded_file = json.load(r_file)
-            return loaded_file
-       
-def get_user_info():
-    with open('p_fldr_x/pswds.json', 'r') as file:
-        file_data = json.load(file)
-        length = len(file_data)
+        create_folder(password_folder)
+        print('New folder created.')
+        create_file(password_file)
+        print('New file created.')
+        load_file(password_file)
+
+
+def get_user_info(password_file=file_path):
+
+    file_data = load_file(password_file)
+    length = len(file_data)
 
     en_name = input('Please enter a name for this login: ')
     print('You entered: ' + en_name)
@@ -56,15 +61,13 @@ def get_user_info():
     en_password = input('Please enter a password for this login: ')
     print('You entered: ' + en_password)
 
-
     user_info = {length + 1: {"name": en_name, "username": en_username, "email": en_email, "password": en_password}}
-    print(user_info)
 
     return user_info
 
 
-def write_password(new_data, filename='p_fldr_x/pswds.json'):
-    with open(filename, 'r+') as file:
+def write_data(new_data, password_file=file_path):
+    with open(password_file, 'r+') as file:
         file_data = json.load(file)
         file_data.update(new_data)
         file.seek(0)
@@ -72,7 +75,7 @@ def write_password(new_data, filename='p_fldr_x/pswds.json'):
 
 
 file_check()
-
 enter_data = get_user_info()
-write_password(enter_data)
+write_data(enter_data)
 
+print(load_file(file_path))
