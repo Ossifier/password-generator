@@ -3,9 +3,7 @@ import json
 
 
 folder_path = 'p_fldr_x/'
-folder_exists = os.path.exists(folder_path)
 file_path = 'p_fldr_x/pswds.json'
-file_exists = os.path.exists(file_path)
 
 
 def create_file(file):
