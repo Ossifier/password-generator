@@ -2,8 +2,17 @@ import os
 import json
 
 
-folder_path = 'p_fldr_x/'
-file_path = 'p_fldr_x/pswds.json'
+def get_folder_name():
+    en_folder_name = input('Enter a folder name: ') + '/'
+    print('Folder name: ' + en_folder_name)
+    return en_folder_name
+
+
+def get_file_name(folder):
+    print('Directory Location ' + folder)
+    en_file_name = input('Enter a file name: ') + '.json'
+    print('File name: ' + en_file_name)
+    return folder + en_file_name
 
 
 def create_file(file):
@@ -21,7 +30,7 @@ def load_file(file):
         return loaded_file
 
 
-def file_check(password_folder=folder_path, password_file=file_path):
+def file_check(password_folder, password_file):
 
     if os.path.exists(password_folder) is True:
         print('Folder exists.')
@@ -45,7 +54,7 @@ def file_check(password_folder=folder_path, password_file=file_path):
         load_file(password_file)
 
 
-def get_user_info(password_file=file_path):
+def get_user_info(password_file):
 
     file_data = load_file(password_file)
     length = len(file_data)
@@ -64,7 +73,7 @@ def get_user_info(password_file=file_path):
     return user_info
 
 
-def write_data(new_data, password_file=file_path):
+def write_data(new_data, password_file):
     with open(password_file, 'r+') as file:
         file_data = json.load(file)
         file_data.update(new_data)
@@ -72,8 +81,13 @@ def write_data(new_data, password_file=file_path):
         json.dump(file_data, file, indent=4)
 
 
-file_check()
-enter_data = get_user_info()
-write_data(enter_data)
+folder_path = get_folder_name()
+print(folder_path)
+file_path = get_file_name(folder_path)
+print(file_path)
+
+file_check(folder_path, file_path)
+enter_data = get_user_info(file_path)
+write_data(enter_data, file_path)
 
 print(load_file(file_path))
