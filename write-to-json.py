@@ -81,13 +81,17 @@ def write_data(new_data, password_file):
         json.dump(file_data, file, indent=4)
 
 
-folder_path = get_folder_name()
-print(folder_path)
-file_path = get_file_name(folder_path)
-print(file_path)
+if __name__ == '__main__':
 
-file_check(folder_path, file_path)
-enter_data = get_user_info(file_path)
-write_data(enter_data, file_path)
+    print('Run Directly, For Testing Purposes:\n')
 
-print(load_file(file_path))
+    folder_path = get_folder_name()
+    print(folder_path)
+    file_path = get_file_name(folder_path)
+    print(file_path)
+
+    file_check(folder_path, file_path)
+    enter_data = get_user_info(file_path)
+    write_data(enter_data, file_path)
+
+    print(load_file(file_path))
