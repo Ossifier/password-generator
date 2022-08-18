@@ -9,7 +9,7 @@ special_characters = list(string.punctuation)
 all_characters = list(string.ascii_letters + string.digits + string.punctuation)
 
 
-def generate_passwords():
+def generate_passwords_auto():
     password_gen_count = int(input("Number of passwords you would like to generate: "))
 
     alpha_char_count_lo = int(input("Number of lower case letters in password: "))
@@ -32,7 +32,7 @@ def generate_passwords():
             password.append(secrets.choice(special_characters))
 
         shuffle(password)
-        password_string = "".join(password)
+        password_string = ''.join(password)
         password_list.append(password_string)
 
         password = []
@@ -41,10 +41,10 @@ def generate_passwords():
 
 
 def create_txt_dump(password_list):
-    with open('passwords.txt', 'w') as f:
-        f.write('***Passwords***\n\n')
+    with open('passwords.txt', 'w') as file:
+        file.write('***Passwords***\n\n')
         for password in password_list:
-            f.write("%s\n" % password)
+            file.write("%s\n" % password)
         print('')
         print('List Dump Complete.')
 
@@ -59,11 +59,49 @@ def retrieve_txt_dump():
     return fresh_test_list
 
 
+def trim_passwords(password_list):
+    complete = False
+    character_trim_list = []
+    character_trim_string = ''
+    new_list = []
+
+    while complete is False:
+
+        new_trim_chars = input('Please enter the characters you would like to trim: ')
+
+        for i in new_trim_chars:
+            if i in character_trim_list:
+                pass
+            else:
+                character_trim_list.append(i)
+
+            character_trim_string = ''.join(character_trim_list)
+
+        quit_val = input('Would you like to add more characters? Y/N?: ').upper()
+
+        if quit_val == 'Y':
+            pass
+        elif quit_val == 'N':
+            complete = True
+        else:
+            print('Unexpected Error Detected...')
+
+    for password_string in password_list:
+        for character in character_trim_string:
+            if character in password_string:
+                new_string = password_string.replace(character, '')
+                password_string = new_string
+            else:
+                pass
+        new_list.append(password_string)
+    return new_list
+
+
 if __name__ == '__main__':
 
     print('Run Directly, For Testing Purposes:\n')
 
-    test_list = generate_passwords()
+    test_list = generate_passwords_auto()
 
     for i in test_list:
         print(i)
@@ -73,6 +111,11 @@ if __name__ == '__main__':
 
     create_txt_dump(test_list)
 
-    final_test_list = retrieve_txt_dump()
+    second_test_list = retrieve_txt_dump()
 
-    print(list(final_test_list))
+    trimmed_test_list = trim_passwords(second_test_list)
+
+    create_txt_dump(trimmed_test_list)
+
+    for i in trimmed_test_list:
+        print(i)
