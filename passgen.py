@@ -50,13 +50,13 @@ def create_txt_dump(password_list):
 
 
 def retrieve_txt_dump():
-    fresh_test_list = []
+    fresh_text_list = []
     list_from_file = open('passwords.txt', 'r').readlines()
     del list_from_file[:2]
 
     for i in list_from_file:
-        fresh_test_list.append(i.strip())
-    return fresh_test_list
+        fresh_text_list.append(i.strip())
+    return fresh_text_list
 
 
 def trim_passwords(password_list):
