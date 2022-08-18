@@ -76,7 +76,7 @@ def trim_passwords(password_list):
                 character_trim_list.append(i)
             character_trim_string = ''.join(character_trim_list)
 
-        quit_val = input('Would you like to add more characters? Y/N?: ').upper()
+        quit_val = input('Would you like to add more characters? Y/N: ').upper()
 
         if quit_val == 'Y':
             pass
