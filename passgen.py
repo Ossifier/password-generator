@@ -47,6 +47,7 @@ def create_txt_dump(password_list):
             file.write("%s\n" % password)
         print('')
         print('List Dump Complete.')
+        print('')
 
 
 def retrieve_txt_dump():
@@ -60,38 +61,56 @@ def retrieve_txt_dump():
 
 
 def trim_passwords(password_list):
-    complete = False
     character_trim_list = []
     character_trim_string = ''
     new_list = []
 
-    while complete is False:
+    new_trim_chars = input('Please enter the characters you would like to trim from your passwords: ')
 
-        new_trim_chars = input('Please enter the characters you would like to trim: ')
-
-        for i in new_trim_chars:
-            if i in character_trim_list:
-                pass
-            else:
-                character_trim_list.append(i)
-            character_trim_string = ''.join(character_trim_list)
-
-        quit_val = input('Would you like to add more characters? Y/N: ').upper()
-
-        if quit_val == 'Y':
+    for c in new_trim_chars:
+        if c in character_trim_list:
             pass
-        elif quit_val == 'N':
-            complete = True
         else:
-            print('Unexpected Error Detected...')
+            character_trim_list.append(c)
+        character_trim_string = ''.join(character_trim_list)
 
     for password_string in password_list:
-        for character in character_trim_string:
-            if character in password_string:
-                new_string = password_string.replace(character, '')
+        for c in character_trim_string:
+            if c in password_string:
+                new_string = password_string.replace(c, '')
                 password_string = new_string
             else:
                 pass
+        new_list.append(password_string)
+    return new_list
+
+
+def spice_passwords(password_list):
+    character_spice_list = []
+    character_spice_string = ''
+    new_list = []
+
+    new_spice_chars = input('Please enter the characters you would like to spice your passwords with: ')
+
+    for c in new_spice_chars:
+        if c in character_spice_list:
+            pass
+        else:
+            character_spice_list.append(c)
+        character_spice_string = ''.join(character_spice_list)
+
+    for password_string in password_list:
+        for c in character_spice_string:
+            if c not in password_string:
+                new_string = (password_string + c)
+                password_string = new_string
+            else:
+                pass
+
+            l = list(password_string)
+            shuffle(l)
+            password_string = ''.join(l)
+
         new_list.append(password_string)
     return new_list
 
@@ -118,3 +137,14 @@ if __name__ == '__main__':
 
     for i in trimmed_test_list:
         print(i)
+    print('')
+
+    third_test_list = retrieve_txt_dump()
+    
+    spiced_test_list = spice_passwords(third_test_list)
+
+    create_txt_dump(spiced_test_list)
+
+    for i in spiced_test_list:
+        print(i)
+    print()
