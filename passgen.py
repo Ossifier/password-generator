@@ -9,6 +9,11 @@ special_characters = list(string.punctuation)
 all_characters = list(string.ascii_letters + string.digits + string.punctuation)
 
 
+###>>>......................<<<###
+### PASSWORD & FILE GENERATORS ###
+###>>>.....................<<<####
+
+
 def generate_passwords_auto():
     password_gen_count = int(input("Number of passwords you would like to generate: "))
 
@@ -40,8 +45,8 @@ def generate_passwords_auto():
     return password_list
 
 
-def create_txt_dump(password_list):
-    with open('passwords.txt', 'w') as file:
+def create_txt_dump(password_list, file_name):
+    with open(file_name, 'w') as file:
         file.write('***Passwords***\n\n')
         for password in password_list:
             file.write("%s\n" % password)
@@ -50,14 +55,25 @@ def create_txt_dump(password_list):
         print('')
 
 
-def retrieve_txt_dump():
+def retrieve_txt_dump(file_name):
     fresh_text_list = []
-    list_from_file = open('passwords.txt', 'r').readlines()
+    list_from_file = open(file_name, 'r').readlines()
     del list_from_file[:2]
 
-    for i in list_from_file:
-        fresh_text_list.append(i.strip())
+    for password_string in list_from_file:
+        fresh_text_list.append(password_string.strip())
     return fresh_text_list
+
+
+###>>>...................................<<<###
+### PASSWORD EDITING, RETRIEVING & HANDLING ###
+###>>>..................................<<<####
+
+
+def retrieve_password_by_index(password_list):
+    index = int(input('Please enter the number of the password you would like to retrieve: '))
+    retrieved_password = password_list[index - 1]
+    print('Password Retrieved: ' + retrieved_password)
 
 
 def trim_passwords(password_list):
@@ -107,12 +123,17 @@ def spice_passwords(password_list):
             else:
                 pass
 
-            l = list(password_string)
-            shuffle(l)
-            password_string = ''.join(l)
+            ls = list(password_string)
+            shuffle(ls)
+            password_string = ''.join(ls)
 
         new_list.append(password_string)
     return new_list
+
+
+###>>>.......................<<<###
+### FUNCTION TESTING SUBSECTION ###
+###>>>......................<<<####
 
 
 if __name__ == '__main__':
@@ -127,24 +148,26 @@ if __name__ == '__main__':
     print('\nList Length: ')
     print(len(test_list))
 
-    create_txt_dump(test_list)
+    file_name = input('Enter your file name (probably passwords): ') + '.txt'
+    create_txt_dump(test_list, file_name)
 
-    second_test_list = retrieve_txt_dump()
+    second_test_list = retrieve_txt_dump(file_name)
 
     trimmed_test_list = trim_passwords(second_test_list)
 
-    create_txt_dump(trimmed_test_list)
+    create_txt_dump(trimmed_test_list, file_name)
 
     for i in trimmed_test_list:
         print(i)
     print('')
 
-    third_test_list = retrieve_txt_dump()
-    
+    third_test_list = retrieve_txt_dump(file_name)
+
     spiced_test_list = spice_passwords(third_test_list)
 
-    create_txt_dump(spiced_test_list)
+    create_txt_dump(spiced_test_list, file_name)
 
     for i in spiced_test_list:
         print(i)
     print()
+    
