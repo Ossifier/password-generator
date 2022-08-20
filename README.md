@@ -4,7 +4,7 @@ This is a very simple password generator to act as practice to get me back into 
 Thus far it is a fully functioning password generator that can be used so long as you have Python installed. This generator allows the user to select preferences for length of the password, number of letters, numbers, and special characters to be included, and the number of random passwords to be generated at once.
 
 ## TO DO:
-1. Add password management functionality so not only can you generate and save passwords, but also retrieve them if you so choose.
+1. More fully integrate password retrieval and management functionality into the main.py file so that you can put your generated .txt passwords into your .json file more seemlessly.
 2. Build a functioning GUI interface using tkinter.
 
 ## TO CONSIDER:
@@ -15,3 +15,4 @@ Thus far it is a fully functioning password generator that can be used so long a
 ## COMPLETED TO DOS:
 1. Add the capability to write passwords to a .txt file. >>> Now writes to JSON files.
 2. Added trimming functionality that allows users to delete specific characters from all the passwords they generate after generating them.
+3. Add password management functionality so not only can you generate and save passwords, but also retrieve them if you so choose.
