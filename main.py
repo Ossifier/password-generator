@@ -58,7 +58,7 @@ if __name__ == '__main__':
             print('>>> gen pswds ---> Creates a new password list and dumps that list to a .txt file.')
             print('>>> mk json ---> Creates new .json data file. Prompts for file/folder name if none exists.')
             print('>>> dir name ---> Gets a directory name for managing folders.')
-            print('>>> mk dir ---> Creates a new directory based on the dir name.)
+            print('>>> mk dir ---> Creates a new directory based on the dir name.')
             print('>>> file name ---> Gets a file name for creating files and retrieving file data.')
             print('>>> get pswds list ---> Retrieves and prints a password from your randomly generated .txt file.')
             print('>>> quit ---> Quits the program.\n')
