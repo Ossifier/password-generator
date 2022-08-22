@@ -26,7 +26,10 @@ def create_file(file):
 
 
 def create_folder(folder):
-    os.makedirs(folder)
+    if os.path.exists(folder) is True:
+        pass
+    else:
+        os.makedirs(folder)
 
 
 def load_file(file):
@@ -38,20 +41,18 @@ def load_file(file):
 def check_for_file(password_folder, password_file):
 
     if os.path.exists(password_folder) is True:
-        print('Folder exists.')
+        print('Folder already exists.')
 
         if os.path.exists(password_file) is True:
-            print('File exists.')
+            print('File already exists.')
             load_file(password_file)
 
         else:
-            print('File does not exist...')
             create_file(password_file)
             print('New file created.')
             load_file(password_file)
 
     else:
-        print('Folder does not exist...')
         create_folder(password_folder)
         print('New folder created.')
         create_file(password_file)
