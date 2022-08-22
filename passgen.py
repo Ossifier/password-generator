@@ -71,7 +71,7 @@ def retrieve_txt_dump(file_path):
 
 
 def retrieve_password_by_index(password_list):
-    index = int(input('Please enter the number of the password you would like to retrieve: '))
+    index = int(input('Please enter the index number of the password you would like to retrieve: '))
     retrieved_password = password_list[index - 1]
     print('Password Retrieved: ' + retrieved_password)
 
