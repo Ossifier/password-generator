@@ -1,5 +1,5 @@
-import os
 import json
+import os
 
 
 ###>>>..................<<<###
@@ -35,7 +35,7 @@ def load_file(file):
         return loaded_file
 
 
-def file_check(password_folder, password_file):
+def check_for_file(password_folder, password_file):
 
     if os.path.exists(password_folder) is True:
         print('Folder exists.')
@@ -57,6 +57,24 @@ def file_check(password_folder, password_file):
         create_file(password_file)
         print('New file created.')
         load_file(password_file)
+
+
+def delete_file(file):
+    if os.path.isfile(file):
+        os.remove(file)
+        print(file + ' has been deleted!')
+    else:
+        print(file + ' does not exist.')
+
+
+def delete_folder(folder):
+    if os.path.isdir(folder):
+        for file in os.scandir(folder):
+            os.remove(file.path)
+        os.rmdir(folder)
+        print(folder + ' has been deleted!')
+    else:
+        print(folder + ' does not exist.')
 
 
 ###>>>...........................<<<###
@@ -131,18 +149,34 @@ if __name__ == '__main__':
     file_path = 'password-folder/password-file.json'
     print(file_path)
 
-    file_check(folder_path, file_path)
+    check_for_file(folder_path, file_path)
 
     continue_add = 'Y'
     while continue_add == 'Y':
         add_json_entry()
-        continue_add = input('Do you want to add another entry? (Y/N):' )
+        continue_add = input('Do you want to add another entry? (Y/N): ')
 
     print('')
 
     continue_del = 'Y'
     while continue_del == 'Y':
         delete_entry(file_path)
-        continue_del = input('Do you want to add another entry? (Y/N):' )
+        continue_del = input('Do you want to delete another entry? (Y/N): ')
+
+    user_file_del = input('Delete File: (Y/N): ').upper()
+    if user_file_del == 'Y':
+        delete_file(file_path)
+    else:
+        pass
+
+    user_fol_del = input('Delete Folder: (Y/N): ').upper()
+    if user_fol_del == 'Y':
+        dbl_check = input('WARNING! This will delete all files currently in this folder. Continue? (Y/N): ')
+        if dbl_check == 'Y':
+            delete_folder(folder_path)
+        else:
+            print('Operation Aborted.\n')
+    else:
+        pass
 
     print('\nOperations Complete.')
