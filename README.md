@@ -8,11 +8,11 @@ Thus far it is a fully functioning password generator that can be used so long a
 2. Build a functioning GUI interface using tkinter.
 
 ## TO CONSIDER:
-1. Add enhanced specificity that allows users to select which special characters, numbers, or letters they would like to include.
-2. Add a dictionary functionality to allow users to generate passwords that can also pull words from a dictionary list (potentially stored as a JSON file).
-3. Allow users to specify words or character lists they would like to use in generating their passwords.
+1. Add a dictionary functionality to allow users to generate passwords that can also pull words from a dictionary list (potentially stored as a JSON file).
+2. Allow users to specify words or character lists they would like to use in generating their passwords.
 
 ## COMPLETED TO DOS:
 1. Add the capability to write passwords to a .txt file. >>> Now writes to JSON files.
 2. Added trimming functionality that allows users to delete specific characters from all the passwords they generate after generating them.
-3. Add password management functionality so not only can you generate and save passwords, but also retrieve them if you so choose.
+3. Added password management functionality so not only can you generate and save passwords, but also retrieve them if you so choose.
+4. Added enhanced specificity that allows users to select which special characters, numbers, or letters they would like to include.
