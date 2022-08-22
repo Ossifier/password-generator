@@ -45,8 +45,8 @@ def generate_passwords_auto():
     return password_list
 
 
-def create_txt_dump(password_list, file_name):
-    with open(file_name, 'w') as file:
+def create_txt_dump(password_list, file_path):
+    with open(file_path, 'w') as file:
         file.write('***Passwords***\n\n')
         for password in password_list:
             file.write("%s\n" % password)
@@ -55,9 +55,9 @@ def create_txt_dump(password_list, file_name):
         print('')
 
 
-def retrieve_txt_dump(file_name):
+def retrieve_txt_dump(file_path):
     fresh_text_list = []
-    list_from_file = open(file_name, 'r').readlines()
+    list_from_file = open(file_path, 'r').readlines()
     del list_from_file[:2]
 
     for password_string in list_from_file:
@@ -170,4 +170,3 @@ if __name__ == '__main__':
     for i in spiced_test_list:
         print(i)
     print()
-    
