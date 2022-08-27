@@ -107,7 +107,7 @@ def append_new_data(new_data, file_path):
         json.dump(file_data, file, indent=4)
 
 
-def add_json_entry():
+def add_json_entry(file_path):
     user_data = get_user_info()
     append_new_data(user_data, file_path)
 
@@ -150,11 +150,14 @@ if __name__ == '__main__':
     file_path = 'password-folder/password-file.json'
     print(file_path)
 
+    file_path_test = folder_path + input('Enter \'password-file\': ') + '.json'
+    print(file_path)
+
     check_for_file(folder_path, file_path)
 
     continue_add = 'Y'
     while continue_add == 'Y':
-        add_json_entry()
+        add_json_entry(file_path_test)
         continue_add = input('Do you want to add another entry? (Y/N): ')
 
     print('')
@@ -181,3 +184,4 @@ if __name__ == '__main__':
         pass
 
     print('\nOperations Complete.')
+    
