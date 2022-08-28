@@ -13,7 +13,6 @@ all_characters = list(string.ascii_letters + string.digits + string.punctuation)
 ### PASSWORD & FILE GENERATORS ###
 ###>>>.....................<<<####
 
-
 def generate_passwords_auto():
     password_gen_count = int(input("Number of passwords you would like to generate: "))
 
@@ -69,11 +68,12 @@ def retrieve_txt_dump(file_path):
 ### PASSWORD EDITING, RETRIEVING & HANDLING ###
 ###>>>..................................<<<####
 
-
 def retrieve_password_by_index(password_list):
-    index = int(input('Please enter the index number of the password you would like to retrieve: '))
-    retrieved_password = password_list[index - 1]
-    print('Password Retrieved: ' + retrieved_password)
+    index_lower = int(input('Please enter the lower range index of the password you would like to retrieve: '))
+    index_upper = int(input('Please enter the upper range index of the password you would like to retrieve: ')) + 1
+    for i in range(index_upper - index_lower):
+        retrieved_password = password_list[index_lower + i - 1]
+        print('Password Retrieved: ' + retrieved_password)
 
 
 def trim_passwords(password_list):
@@ -122,7 +122,6 @@ def spice_passwords(password_list):
                 password_string = new_string
             else:
                 pass
-
             ls = list(password_string)
             shuffle(ls)
             password_string = ''.join(ls)
@@ -134,7 +133,6 @@ def spice_passwords(password_list):
 ###>>>.......................<<<###
 ### FUNCTION TESTING SUBSECTION ###
 ###>>>......................<<<####
-
 
 if __name__ == '__main__':
 
@@ -170,3 +168,4 @@ if __name__ == '__main__':
     for i in spiced_test_list:
         print(i)
     print()
+    
