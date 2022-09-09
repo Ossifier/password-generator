@@ -6,6 +6,8 @@ import writejson as wj
 ###>>>    |  '--' |' ,-.  |(  .-' (  .-' |  | |  |'-.  .-',--.|  |    <<<###
 ###>>>    |  | --' \ '-'  |.-'  `).-'  `)'  '-'  '  |  |  |  ||  |    <<<###
 ###>>>    `--'      `--`--'`----' `----'  `-----'   `--'  `--'`--'    <<<###
+
+
 def command_repeat(continue_query):
     while continue_query == 'Y' or 'N':
         if continue_query == 'Y':
@@ -69,12 +71,8 @@ if __name__ == '__main__':
                 print('')
 
                 cont_reply = input('Would you like to retrieve another full password list? (Y/N): ').upper()
-                if cont_reply == 'Y':
-                    pass
-                elif cont_reply == 'N':
-                    comm_cont = False
-                else:
-                    cont_reply = input('Command not recognized; please enter \'Y\' or \'N\': ')
+
+                comm_cont = command_repeat(cont_reply)
 
         if user_command == 'get p by ind':
             comm_cont = True
