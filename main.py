@@ -1,13 +1,13 @@
 import passgen as pg
 import writejson as wj
+import os
+
 
 ###>>>    ,------.                       ,--. ,--.  ,--.  ,--.,--.    <<<###
 ###>>>    |  .--. ' ,--,--. ,---.  ,---. |  | |  |,-'  '-.`--'|  |    <<<###
 ###>>>    |  '--' |' ,-.  |(  .-' (  .-' |  | |  |'-.  .-',--.|  |    <<<###
 ###>>>    |  | --' \ '-'  |.-'  `).-'  `)'  '-'  '  |  |  |  ||  |    <<<###
 ###>>>    `--'      `--`--'`----' `----'  `-----'   `--'  `--'`--'    <<<###
-
-
 def command_repeat(continue_query):
     while continue_query == 'Y' or 'N':
         if continue_query == 'Y':
@@ -33,11 +33,15 @@ if __name__ == '__main__':
         user_command = input('Enter Your Command: ')
         print('')
 
+        ###>>>                             <<<###
+        ###>>> PASSWORD .TXT FILE COMMANDS <<<###
+        ###>>>                             <<<###
         if user_command == 'help':
             print('\n☆ﾟ.*･｡ﾟCommand List☆ﾟ.*･｡ﾟ\n')
             print('>>> gen p ---> Creates a new password list and dumps that list to a .txt file.')
             print('>>> pt all p ---> Prints all the passwords from the password .txt file you have generated.')
-            print('>>> w json ---> Writes data to .json file. If a file does not exist, prompts for a file/folder name and creates it.')
+            print('>>> w json ---> Writes data to .json file. If a file does not exist, prompts for a file/folder name '
+                  'and creates it.')
             print('>>> get p by ind ---> Prints the passwords from .txt within a user-specified range.')
             print('>>> spice p ---> Adds user-specified characters to all passwords in a .txt file.')
             print('>>> trim p ---> Removes user-specified characters from all passwords in a .txt file.')
@@ -52,82 +56,106 @@ if __name__ == '__main__':
         if user_command == 'gen p':
             comm_cont = True
             while comm_cont is True:
+                user_input = input('Please enter a name for your new file: ') + '.txt'
+                if user_input == 'exit.txt':
+                    while user_input == 'exit.txt':
+                        user_input = input('This name will interfere with utility functionality. '
+                                           'Please choose another: ')
                 new_password_list = pg.generate_passwords_auto()
-                txt_file_name = input('Please enter a name for your new file: ') + '.txt'
-                pg.create_txt_dump(new_password_list, txt_file_name)
-
+                pg.create_txt_dump(new_password_list, user_input)
                 cont_reply = input('Would you like to generate another password list? (Y/N): ').upper()
-
+                new_password_list = []
                 comm_cont = command_repeat(cont_reply)
 
         if user_command == 'pt all p':
             comm_cont = True
             while comm_cont is True:
-                file_path = input('Please enter your password filename: ') + '.txt'
-                print(file_path + '\n')
-                retrieved_list = pg.retrieve_txt_dump(file_path)
-                for st in retrieved_list:
-                    print(st)
-                print('')
-
-                cont_reply = input('Would you like to retrieve another full password list? (Y/N): ').upper()
-
-                comm_cont = command_repeat(cont_reply)
+                user_input = input('Please enter your .txt password filename. Type \'exit\' to quit: ') + '.txt'
+                if os.path.exists(user_input) is True:
+                    print(user_input + '\n')
+                    retrieved_list = pg.retrieve_txt_dump(user_input)
+                    for st in retrieved_list:
+                        print(st)
+                    print('')
+                    cont_reply = input('Would you like to retrieve another full password list? (Y/N): ').upper()
+                    comm_cont = command_repeat(cont_reply)
+                elif os.path.exists(user_input) is False and user_input == 'exit.txt':
+                    print('Exiting Command...')
+                    comm_cont = False
+                else:
+                    print('File name not recognized. Please check to ensure file exists. '
+                          'Input \'exit\' or an hit \'Enter\' to quit.')
 
         if user_command == 'get p by ind':
             comm_cont = True
             while comm_cont is True:
-                txt_file_name = input('Please enter your file name: ') + '.txt'
-                retrieved_list = pg.retrieve_txt_dump(txt_file_name)
-                pg.retrieve_password_by_index(retrieved_list)
-
-                cont_reply = input('Would you like to retrieve additional passwords? (Y/N): ').upper()
-
-                comm_cont = command_repeat(cont_reply)
+                user_input = input('Please enter your .txt file name: ') + '.txt'
+                if os.path.exists(user_input) is True:
+                    retrieved_list = pg.retrieve_txt_dump(user_input)
+                    pg.retrieve_password_by_index(retrieved_list)
+                    cont_reply = input('Would you like to retrieve additional passwords? (Y/N): ').upper()
+                    comm_cont = command_repeat(cont_reply)
+                elif os.path.exists(user_input) is False and user_input == 'exit.txt':
+                    print('Exiting Command...')
+                    comm_cont = False
+                else:
+                    print('File name not recognized. Please check to ensure file exists.')
 
         if user_command == 'spice p':
             comm_cont = True
             while comm_cont is True:
-                spice_path = input('Please enter the password file name you would like to spice: ') + '.txt'
-                password_list = pg.retrieve_txt_dump(spice_path)
-                spiced_list = pg.spice_passwords(password_list)
-                pg.create_txt_dump(spiced_list, spice_path)
-
-                cont_reply = input('Would you like to add additional spice to a password file? (Y/N): ').upper()
-
-                comm_cont = command_repeat(cont_reply)
+                user_input = input('Please enter the password file name you would like to spice: ') + '.txt'
+                if os.path.exists(user_input) is True:
+                    password_list = pg.retrieve_txt_dump(user_input)
+                    spiced_list = pg.spice_passwords(password_list)
+                    pg.create_txt_dump(spiced_list, user_input)
+                    cont_reply = input('Would you like to add additional spice to a password file? (Y/N): ').upper()
+                    comm_cont = command_repeat(cont_reply)
+                elif os.path.exists(user_input) is False and user_input == 'exit.txt':
+                    print('Exiting Command...')
+                    comm_cont = False
+                else:
+                    print('File name not recognized. Please check to ensure file exists.')
 
         if user_command == 'trim p':
             comm_cont = True
             while comm_cont is True:
-                trim_path = input('Please enter the password file name you would like to trim: ') + '.txt'
-                password_list = pg.retrieve_txt_dump(trim_path)
-                trimmed_list = pg.trim_passwords(password_list)
-                pg.create_txt_dump(trimmed_list, trim_path)
-
-                cont_reply = input('Would you like to trim more characters from a password file? (Y/N): ').upper()
-
-                comm_cont = command_repeat(cont_reply)
+                user_input = input('Please enter the password file name you would like to trim: ') + '.txt'
+                if os.path.exists(user_input) is True:
+                    password_list = pg.retrieve_txt_dump(user_input)
+                    trimmed_list = pg.trim_passwords(password_list)
+                    pg.create_txt_dump(trimmed_list, user_input)
+                    cont_reply = input('Would you like to trim more characters from a password file? (Y/N): ').upper()
+                    comm_cont = command_repeat(cont_reply)
+                elif os.path.exists(user_input) is False and user_input == 'exit.txt':
+                    print('Exiting Command...')
+                    comm_cont = False
+                else:
+                    print('File name not recognized. Please check to ensure file exists.')
 
         if user_command == 'w json':
-            if folder_path == '':
-                folder_path = wj.get_folder_name()
-            if file_path == '':
-                file_path = wj.get_file_name(folder_path)
-                print('\nFile Path: ' + file_path + '\n')
-
-            wj.check_for_file(folder_path, file_path)
-
             comm_cont = True
             while comm_cont is True:
 
-                add_new = input('Would you like to add entries? (Y/N): ').upper()
-                if add_new == 'Y':
-                    wj.add_json_entry(file_path)
-                elif add_new == 'N':
-                    comm_cont = False
-                else:
-                    print('Command not recognized. Please enter Y for yes, or N for no.')
+                folder_path = wj.get_folder_name()
+                file_path = wj.get_file_name(folder_path)
+                print('\nFile Path: ' + file_path + '\n')
+                wj.check_for_file(folder_path, file_path)
+
+                add_cont = True
+                while add_cont is True:
+                    add_query = input('\nWould you like to add password entries to this file? (Y/N): ').upper()
+                    if add_query == 'Y':
+                        wj.add_json_entry(file_path)
+                    elif add_query == 'N':
+                        add_cont = False
+                    else:
+                        print('Command not recognized. Please enter Y for yes, or N for no.')
+
+                cont_reply = input('Would you like to create more directories and files? (Y/N): ').upper()
+                print('')
+
+                comm_cont = command_repeat(cont_reply)
 
         if user_command == 'dir name':
             folder_path = wj.get_folder_name()
@@ -155,5 +183,7 @@ if __name__ == '__main__':
 
         if user_command == 'quit':
             quit_util = True
+            
         # print('Command does not exist. Type \'help\' to return the full command list.\n')
+        
     print('Operations Complete. Goodbye!')
