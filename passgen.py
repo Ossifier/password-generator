@@ -9,18 +9,39 @@ special_characters = list(string.punctuation)
 all_characters = list(string.ascii_letters + string.digits + string.punctuation)
 
 
+###>>>....................<<<###
+### ERROR HANDLING FUNCTIONS ###
+###>>>...................<<<####
+
+
+def positive_integer_check(user_input):
+    user_input_correct = False
+    while user_input_correct is False:
+        if user_input.isnumeric() is True:
+            while int(user_input) < 0:
+                user_input = input('Value is not a number. Please enter a valid positive integer: ')
+            user_input_integer = int(user_input)
+            return user_input_integer
+        else:
+            user_input = input('Value is not a number. Please enter a valid positive integer: ')
+
+
 ###>>>......................<<<###
 ### PASSWORD & FILE GENERATORS ###
 ###>>>.....................<<<####
 
-def generate_passwords_auto():
-    password_gen_count = int(input("Number of passwords you would like to generate: "))
 
-    alpha_char_count_lo = int(input("Number of lower case letters in password: "))
-    alpha_char_count_up = int(input("Number of UPPER case letter in password: "))
-    number_count = int(input("Number of numbers in password: "))
-    special_count = int(input("Number of special characters in password: "))
-    print('')
+def generate_passwords_auto():
+    password_gen_count = input("Number of passwords you would like to generate: ")
+    password_gen_count = positive_integer_check(password_gen_count)
+    alpha_char_count_lo = input("Number of lower case letters in password: ")
+    alpha_char_count_lo = positive_integer_check(alpha_char_count_lo)
+    alpha_char_count_up = input("Number of UPPER case letter in password: ")
+    alpha_char_count_up = positive_integer_check(alpha_char_count_up)
+    number_count = input("Number of numbers in password: ")
+    number_count = positive_integer_check(number_count)
+    special_count = input("Number of special characters in password: ")
+    special_count = positive_integer_check(special_count)
 
     password = []
     password_list = []
@@ -68,12 +89,15 @@ def retrieve_txt_dump(file_path):
 ### PASSWORD EDITING, RETRIEVING & HANDLING ###
 ###>>>..................................<<<####
 
+
 def retrieve_password_by_index(password_list):
     index_lower = int(input('Please enter the lower range index of the password you would like to retrieve: '))
     index_upper = int(input('Please enter the upper range index of the password you would like to retrieve: ')) + 1
+    print('')
     for i in range(index_upper - index_lower):
         retrieved_password = password_list[index_lower + i - 1]
         print('Password Retrieved: ' + retrieved_password)
+    print('')
 
 
 def trim_passwords(password_list):
@@ -134,6 +158,7 @@ def spice_passwords(password_list):
 ### FUNCTION TESTING SUBSECTION ###
 ###>>>......................<<<####
 
+
 if __name__ == '__main__':
 
     print('Run Directly, For Testing Purposes:\n')
@@ -168,4 +193,3 @@ if __name__ == '__main__':
     for i in spiced_test_list:
         print(i)
     print()
-    
