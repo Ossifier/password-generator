@@ -70,9 +70,7 @@ def create_txt_dump(password_list, file_path):
         file.write('***Passwords***\n\n')
         for password in password_list:
             file.write("%s\n" % password)
-        print('')
-        print('List Dump Complete.')
-        print('')
+        print('\nList Dump Complete.')
 
 
 def retrieve_txt_dump(file_path):
@@ -91,8 +89,10 @@ def retrieve_txt_dump(file_path):
 
 
 def retrieve_password_by_index(password_list):
-    index_lower = int(input('Please enter the lower range index of the password you would like to retrieve: '))
-    index_upper = int(input('Please enter the upper range index of the password you would like to retrieve: ')) + 1
+    index_lower = input('Please enter the lower range index of the password you would like to retrieve: ')
+    index_lower = positive_integer_check(index_lower)
+    index_upper = input('Please enter the upper range index of the password you would like to retrieve: ')
+    index_upper = positive_integer_check(index_upper) + 1
     print('')
     for i in range(index_upper - index_lower):
         retrieved_password = password_list[index_lower + i - 1]
